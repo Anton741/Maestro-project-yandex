@@ -10,11 +10,13 @@ export interface IUser{
   avatar?: string;
 };
 
-interface UserModel extends Model<IUser> {
+interface IUserMethods {
   findUserByCredentials: (email: string, password: string) => Promise<Document<unknown, any, IUser>>
 }
 
-const userSchema = new mongoose.Schema<IUser, UserModel>({
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+const userSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
   email: {
     type: String,
     required: true,

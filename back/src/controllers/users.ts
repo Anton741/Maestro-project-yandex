@@ -5,7 +5,7 @@ import UncorrectDataError from '../errors/uncorrect-data-err';
 import ExistedError from '../errors/existed-err'
 import { Error } from 'mongoose';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import AutherizationError from '../errors/autherization-err';
 import { SessionRequest } from 'middlewares/auth';
 
@@ -55,7 +55,7 @@ export const createUser = (req:Request,res:Response, next: NextFunction) => {
 
 export const updateUser = (req:SessionRequest,res:Response, next: NextFunction) => {
   console.log('updateUser');
-  const {user} = req;
+  const {user}:JwtPayload  = req;
   if(!user){
     return next(new AutherizationError())
   }
@@ -78,7 +78,7 @@ export const updateUser = (req:SessionRequest,res:Response, next: NextFunction) 
 }
 
 export const updateAvatar = (req:SessionRequest,res:Response, next: NextFunction) => {
-  const {user} = req;
+  const {user}:JwtPayload  = req;
   if(!user){
     return next(new AutherizationError())
   }
@@ -103,7 +103,7 @@ export const login = async (req:Request,res:Response, next: NextFunction) => {
 
 export const getUserInfo = async (req:SessionRequest,res:Response, next: NextFunction) => {
   console.log(req,'getUserInfo');
-  const {user} = req;
+  const {user}:JwtPayload = req;
   if(!user){
     return next(new AutherizationError());
   }

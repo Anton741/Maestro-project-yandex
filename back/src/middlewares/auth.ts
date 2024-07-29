@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload }  from 'jsonwebtoken';
 
 export interface SessionRequest extends Request {
-  user?: string | (JwtPayload & {_id: string});
+  user?: string | JwtPayload;
 }
 
 export const auth = (req:SessionRequest,res:Response, next: NextFunction) => {
